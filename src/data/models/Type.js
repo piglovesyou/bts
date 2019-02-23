@@ -11,8 +11,8 @@ import { randomBytes } from 'crypto';
 import DataType from 'sequelize';
 import Model from '../sequelize';
 
-const User = Model.define(
-  'User',
+const Type = Model.define(
+  'Type',
   {
     id: {
       primaryKey: true,
@@ -21,17 +21,12 @@ const User = Model.define(
       defaultValue: () => randomBytes(8).toString('hex'),
     },
 
-    name: {
-      type: DataType.STRING,
-    },
-
-    icon: {
-      type: DataType.STRING,
-    },
+    title: { type: DataType.STRING },
+    description: { type: DataType.STRING },
   },
   // {
   //   indexes: [{ fields: ['email'] }],
   // },
 );
 
-export default User;
+export default Type;

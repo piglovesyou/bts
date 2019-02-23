@@ -28,4 +28,18 @@
   --screen-sm-min: 768px;  /* Small screen / tablet */
   --screen-md-min: 992px;  /* Medium screen / desktop */
   --screen-lg-min: 1200px; /* Large screen / wide desktop */
+
+  /*
+   * Colors from material design
+   * https://material.io/tools/color/#!/?view.left=0&view.right=0&primary.color=FFD54F&secondary.color=69F0AE
+   * ======================================================================== */
+
+  --primary: #ffd54f;
+  --primary-text: #000;
+  --primary-light: #ffff81;
+  --primary-dark: #c8a415;
+  --secondary: #69f0ae;
+  --secondary-text: #000;
+  --secondary-light: #9fffe0;
+  --secondary-dark: #2bbd7e;
 }
