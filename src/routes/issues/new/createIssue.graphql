@@ -1,0 +1,9 @@
+mutation createIssue ($title: String!, $description: String!, $project: String!) {
+  createIssue(title: $title, description: $description, project: $project) {
+    id
+    title
+    description
+    updatedAt
+    createdAt
+  }
+}

@@ -38,11 +38,21 @@ type Project {
   createdAt: String!
 }
 
+type Issue {
+  id: String!
+  title: String!
+  description: String!
+  project: Project!
+  updatedAt: String!
+  createdAt: String!
+}
+
 type Query {
   networkStatus: NetworkStatus!
   reactjsGetAllNews: [ReactJSNewsItem!]!
   databaseGetAllUsers: [DatabaseUser]
   projects: [Project!]!
+  issues: [Issue!]!
   databaseGetUser(
     id: String!
   ): DatabaseUser
@@ -52,5 +62,7 @@ type Mutation {
   createNewProject(title: String!, description: String!): Project!
 
   updateNetworkStatus(isConnected: Boolean): NetworkStatus!
+
+  createIssue(title: String!, description: String!, project: String!): Issue!
 }
 

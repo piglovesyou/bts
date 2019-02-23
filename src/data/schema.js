@@ -11,7 +11,7 @@ import { GraphQLScalarType } from 'graphql';
 import { Kind } from 'graphql/language';
 import SchemaDefinition from './schema.graphql';
 import fetch from 'node-fetch';
-import { Project } from './models'
+import { User, Project, Issue } from './models'
 
 const reactNewsUrl =
   'https://api.rss2json.com/v1/api.json' +
@@ -23,11 +23,25 @@ const resolvers = {
     async createNewProject(_, vars) {
       const result = await Project.create(vars);
       return result.dataValues;
-    }
+    },
+    async createIssue(_, vars) {
+      const result = await Issue.create(vars);
+      return {
+        ...result.dataValues,
+        project: await Project.findOne({
+          where: {
+            id: result.dataValues.project,
+          }
+        }),
+      };
+    },
   },
   Query: {
     projects() {
       return Project.findAll();
+    },
+    issues() {
+      return Issue.findAll();
     },
     async databaseGetAllUsers() {
       return await User.findAll({});
