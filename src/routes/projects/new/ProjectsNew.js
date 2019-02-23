@@ -13,15 +13,49 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import React from 'react';
 import { Mutation } from 'react-apollo';
 import { Button, Form, FormGroup, FormText, Input, Label } from 'reactstrap';
+// $FlowExpectError
 import CreateNewProject from './CreateNewProject.graphql';
 import s from './ProjectsNew.css';
 
-type PropTypes = {|
+type Props = {|
   title: string,
 |};
 
-class ProjectsNew extends React.Component<PropTypes> {
+class ProjectsNew extends React.Component<Props, {|
+  validationMessages: Map<string, string>,
+|}> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      validationMessages: new Map(),
+    }
+  }
+  validate(elements: {[string]: HTMLInputElement}): boolean {
+    const msgs = this.state.validationMessages;
+
+    if (!elements.title.value) {
+      msgs.set('title', 'Project title is necessary');
+    } else {
+      msgs.delete('title');
+    }
+
+    if (!elements.description.value) {
+      msgs.set('description', 'Write some clear description');
+    } else {
+      msgs.delete('description');
+    }
+
+    this.setState({ validationMessages: msgs, });
+
+    if (msgs.size) {
+      return false;
+    }
+
+    return true;
+  }
   render() {
+    const msgs = this.state.validationMessages;
+
     return (
       <div className={s.root}>
         <div className={s.container}>
@@ -30,13 +64,23 @@ class ProjectsNew extends React.Component<PropTypes> {
           <Mutation mutation={CreateNewProject}>
 
             {(addTodo, { data }) => (
-              <Form>
+              <Form onSubmit={(e) => {
+                e.preventDefault();
+                if (this.validate(e.target.elements)) {
+                  console.log('good');
+                  return;
+                }
+                console.log('bad');
+              }}>
                 <FormGroup>
                   <Label for="title">Title</Label>
+                  {msgs.get('title') && <div style={{color: 'red', fontWeight: 'bold'}}>{msgs.get('title')}</div>}
+                  <div></div>
                   <Input type="input" name="title" id="title" placeholder="Project title"/>
                 </FormGroup>
                 <FormGroup>
                   <Label for="description">Description</Label>
+                  {msgs.get('description') && <div style={{color: 'red', fontWeight: 'bold'}}>{msgs.get('description')}</div>}
                   <Input type="textarea" name="description" id="description"/>
                 </FormGroup>
                 <Button color="primary">Submit</Button>
