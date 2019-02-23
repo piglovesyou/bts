@@ -20,22 +20,3 @@ export const resolvers = {
   },
 };
 
-export const schema = [
-  `
-  type NetworkStatus {
-    isConnected: Boolean!
-  }
-`,
-];
-
-export const queries = [
-  `
-  networkStatus: NetworkStatus!
-`,
-];
-
-export const mutations = [
-  `
-  updateNetworkStatus(isConnected: Boolean): NetworkStatus!
-`,
-];

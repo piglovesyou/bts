@@ -1,0 +1,53 @@
+# GraphQL cannot handle long - normal timestamp will go failed.
+# In that case, use Timestamp.
+scalar Timestamp
+
+type NetworkStatus {
+  isConnected: Boolean!
+}
+
+# A user stored in the local database
+type DatabaseUser {
+  id: String
+  name: String
+  icon: String
+}
+
+type ReactJSNewsItem {
+  # The news item's title
+  title: String!
+
+  # A direct link URL to this news item on reactjsnews.com
+  link: String!
+
+  # The name of the news item's author
+  author: String!
+
+  # The date this news item was published
+  pubDate: String!
+
+  # News article in HTML format
+  content: String!
+}
+
+type Query {
+
+  networkStatus: NetworkStatus!
+
+  reactjsGetAllNews: [ReactJSNewsItem!]!
+
+  databaseGetAllUsers: [DatabaseUser]
+
+  databaseGetUser(
+    id: String!
+  ): DatabaseUser
+}
+
+type Mutation {
+  updateNetworkStatus(isConnected: Boolean): NetworkStatus!
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}

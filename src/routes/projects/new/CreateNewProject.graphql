@@ -1,0 +1,7 @@
+mutation CreateNewProject($title: title, $description: description) {
+  createNewProject(title: $title, description: $description) {
+    id
+    title
+    description
+  }
+}
