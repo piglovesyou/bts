@@ -54,7 +54,3 @@ type Mutation {
   updateNetworkStatus(isConnected: Boolean): NetworkStatus!
 }
 
-schema {
-  query: Query
-  mutation: Mutation
-}

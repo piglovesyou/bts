@@ -64,7 +64,12 @@ const resolvers = {
 };
 
 export default {
-  typeDefs: SchemaDefinition,
+  typeDefs: [SchemaDefinition, `
+schema {
+  query: Query
+  mutation: Mutation
+}
+  `],
   resolvers,
   ...(__DEV__ ? { log: e => console.error(e.stack) } : {}),
 };

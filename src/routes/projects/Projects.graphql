@@ -1,4 +1,4 @@
-{
+query projects {
   projects {
     id
     title

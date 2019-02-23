@@ -10,5 +10,8 @@ module.exports = {
       // optional disable SSL validation check
       skipSSLValidation: true,
     },
+    includes: [
+      './src/{routes, components}/**/*.{js,graphql}',
+    ],
   },
 };
