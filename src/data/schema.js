@@ -18,7 +18,6 @@ import {
 import {
   schema as DatabaseSchema,
   resolvers as DatabaseResolvers,
-  mutations as DatabaseMutations,
   queries as DatabaseQueries,
 } from './graphql/Database/schema';
 
@@ -65,7 +64,6 @@ const Mutation = [
   # 2. [Mock your GraphQL API](https://www.apollographql.com/docs/graphql-tools/mocking.html) with fine-grained per-type mocking
   # 3. Automatically [stitch multiple schemas together](https://www.apollographql.com/docs/graphql-tools/schema-stitching.html) into one larger API
   type Mutation {
-    ${DatabaseMutations}
     ${OnMemoryStateMutations}
   }
 `,
