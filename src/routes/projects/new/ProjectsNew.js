@@ -16,6 +16,7 @@ import { Button, Form, FormGroup, FormText, Input, Label } from 'reactstrap';
 // $FlowExpectError
 import CreateNewProject from './CreateNewProject.graphql';
 import s from './ProjectsNew.css';
+import history from '../../../history';
 
 type Props = {|
   title: string,
@@ -72,19 +73,19 @@ class ProjectsNew extends React.Component<Props, {|
                       title: e.target.elements.title.value,
                       description: e.target.elements.description.value,
                     }
-                  })
-                  return;
+                  });
+                  history.push('/projects');
                 }
               }}>
                 <FormGroup>
                   <Label for="title">Title</Label>
-                  {msgs.get('title') && <div style={{color: 'red', fontWeight: 'bold'}}>{msgs.get('title')}</div>}
+                  {msgs.get('title') && <div className="text-danger">{msgs.get('title')}</div>}
                   <div></div>
                   <Input type="input" name="title" id="title" placeholder="Project title"/>
                 </FormGroup>
                 <FormGroup>
                   <Label for="description">Description</Label>
-                  {msgs.get('description') && <div style={{color: 'red', fontWeight: 'bold'}}>{msgs.get('description')}</div>}
+                  {msgs.get('description') && <div className="text-danger">{msgs.get('description')}</div>}
                   <Input type="textarea" name="description" id="description"/>
                 </FormGroup>
                 <Button color="primary">Submit</Button>

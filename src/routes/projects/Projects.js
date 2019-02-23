@@ -12,26 +12,43 @@
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import React from 'react';
 import { graphql, OperationComponent } from 'react-apollo';
-import { Button, Form, FormGroup, FormText, Input, Label } from 'reactstrap';
+import {
+  Button,
+  Col,
+  Container,
+  Form,
+  FormGroup,
+  FormText,
+  Input,
+  Label,
+  ListGroup,
+  ListGroupItem,
+  Row
+} from 'reactstrap';
 import type { projects as ProjectsQueryType } from './__generated__/projects';
 import s from './Projects.css';
 // $FlowExpectError
 import ProjectsQuery from './Projects.graphql';
 
-type Props = {|
-  title: string,
-|};
 
-const withProjects: OperationComponent<ProjectsQueryType, Props> = graphql(ProjectsQuery);
+const withProjects: OperationComponent<ProjectsQueryType, {|
+  title: string,
+|}> = graphql(ProjectsQuery);
 
 const Projects = (props) => {
-  const projects = props.data.projects;
+  const projects = props.data.projects || [];
   return (
-    <div>{
-      projects.map(p => {
-        return <div key={p.id}>{p.title}</div>;
-      })
-    }</div>
+    <Container>
+
+      <ListGroup>
+        {projects.map(p => (
+          <ListGroupItem key={p.id}>
+            <span className="mr-1 font-weight-bold">{p.title}</span>
+            <span className="text-muted">{p.updatedAt}</span>
+          </ListGroupItem>
+        ))}
+      </ListGroup>
+    </Container>
   );
 };
 

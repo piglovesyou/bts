@@ -9,17 +9,24 @@
 
 // @flow
 
-import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import React from 'react';
+import { graphql } from 'react-apollo';
+import type { OperationComponent, ChildProps } from 'react-apollo';
+import { Button, Form, FormGroup, FormText, Input, Label } from 'reactstrap';
 import s from './IssuesNew.css';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+// $FlowExpectError
+import newIssue from './newIssue.graphql';
+import type {newIssue as NewIssueType} from './__generated__/newIssue';
 
 type PropTypes = {|
   title: string,
 |};
 
-class IssuesNew extends React.Component<PropTypes> {
+class IssuesNew extends React.Component<ChildProps<PropTypes, NewIssueType>> {
   render() {
+    const projects = this.props.data.projects || [];
+    // (this.props.data.x: string);
     return (
       <div className={s.root}>
         <div className={s.container}>
@@ -28,29 +35,21 @@ class IssuesNew extends React.Component<PropTypes> {
           <Form>
             <FormGroup>
               <Label for="title">Title</Label>
-              <Input type="input" name="title" id="title" placeholder="Issue summary" />
+              <Input type="input" name="title" id="title" placeholder="Issue summary"/>
             </FormGroup>
             <FormGroup>
               <Label for="description">Description</Label>
-              <Input type="textarea" name="description" id="description" />
+              <Input type="textarea" name="description" id="description"/>
             </FormGroup>
             <FormGroup>
               <Label for="project">Project</Label>
               <Input type="select" name="project" id="project">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
+                {projects.map(p => (
+                  <option key={p.id} value={p.id}>{p.title}</option>
+                ))}
               </Input>
             </FormGroup>
-            <FormGroup check>
-              <Label check>
-                <Input type="checkbox" />{' '}
-                Check me out
-              </Label>
-            </FormGroup>
-            <Button>Submit</Button>
+            <Button color="primary">Submit</Button>
           </Form>
         </div>
       </div>
@@ -58,4 +57,6 @@ class IssuesNew extends React.Component<PropTypes> {
   }
 }
 
-export default withStyles(s)(IssuesNew);
+const withData: OperationComponent<NewIssueType, PropTypes> = graphql(newIssue);
+
+export default withStyles(s)(withData(IssuesNew));

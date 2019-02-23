@@ -1,0 +1,6 @@
+query newIssue {
+  projects {
+    id
+    title
+  }
+}

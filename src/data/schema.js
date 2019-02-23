@@ -20,7 +20,7 @@ const reactNewsUrl =
 // noinspection JSUnusedGlobalSymbols
 const resolvers = {
   Mutation: {
-    async createNewProject(_, vars, context) {
+    async createNewProject(_, vars) {
       const result = await Project.create(vars);
       return result.dataValues;
     }
