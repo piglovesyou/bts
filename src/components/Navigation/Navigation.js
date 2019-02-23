@@ -29,6 +29,9 @@ class Navigation extends React.Component<{||}> {
         <Link className={s.link} to="/issues/new">
           New issue
         </Link>
+        <Link className={s.link} to="/projects">
+          Projects
+        </Link>
         <Link className={s.link} to="/projects/new">
           New projects
         </Link>

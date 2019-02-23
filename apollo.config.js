@@ -1,7 +1,7 @@
 module.exports = {
   client: {
     service: {
-      name: 'react-starter-kit',
+      name: 'bts',
       url: 'http://localhost:3000/graphql',
       // optional headers
       headers: {

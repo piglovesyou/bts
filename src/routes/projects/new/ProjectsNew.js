@@ -63,14 +63,18 @@ class ProjectsNew extends React.Component<Props, {|
 
           <Mutation mutation={CreateNewProject}>
 
-            {(addTodo, { data }) => (
-              <Form onSubmit={(e) => {
+            {(createNewProject, { data }) => (
+              <Form onSubmit={async (e) => {
                 e.preventDefault();
                 if (this.validate(e.target.elements)) {
-                  console.log('good');
+                  const rv = await createNewProject({
+                    variables: {
+                      title: e.target.elements.title.value,
+                      description: e.target.elements.description.value,
+                    }
+                  })
                   return;
                 }
-                console.log('bad');
               }}>
                 <FormGroup>
                   <Label for="title">Title</Label>

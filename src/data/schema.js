@@ -11,6 +11,7 @@ import { GraphQLScalarType } from 'graphql';
 import { Kind } from 'graphql/language';
 import SchemaDefinition from './schema.graphql';
 import fetch from 'node-fetch';
+import { Project } from './models'
 
 const reactNewsUrl =
   'https://api.rss2json.com/v1/api.json' +
@@ -18,8 +19,16 @@ const reactNewsUrl =
 
 // noinspection JSUnusedGlobalSymbols
 const resolvers = {
-  Mutation: {},
+  Mutation: {
+    async createNewProject(_, vars, context) {
+      const result = await Project.create(vars);
+      return result.dataValues;
+    }
+  },
   Query: {
+    projects() {
+      return Project.findAll();
+    },
     async databaseGetAllUsers() {
       return await User.findAll({});
     },

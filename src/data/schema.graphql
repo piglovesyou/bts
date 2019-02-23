@@ -30,20 +30,27 @@ type ReactJSNewsItem {
   content: String!
 }
 
+type Project {
+  id: String!
+  title: String!
+  description: String!
+  updatedAt: String!
+  createdAt: String!
+}
+
 type Query {
-
   networkStatus: NetworkStatus!
-
   reactjsGetAllNews: [ReactJSNewsItem!]!
-
   databaseGetAllUsers: [DatabaseUser]
-
+  projects: [Project!]!
   databaseGetUser(
     id: String!
   ): DatabaseUser
 }
 
 type Mutation {
+  createNewProject(title: String!, description: String!): Project!
+
   updateNetworkStatus(isConnected: Boolean): NetworkStatus!
 }
 
